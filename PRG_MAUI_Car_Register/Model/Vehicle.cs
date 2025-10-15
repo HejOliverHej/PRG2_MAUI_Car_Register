@@ -13,10 +13,10 @@ namespace PRG_MAUI_Car_Register.Model
         public Vehicle(Type vehicleType, string registrationNumber, string manufacturer, string model, string modelYear) 
         {
             this.vehicleType = vehicleType;
-            registrationNumber = registrationNumber;
-            manufacturer = manufacturer;
-            model = model;
-            modelYear = modelYear;
+            RegistrationNumber = registrationNumber;
+            Manufacturer = manufacturer;
+            Model = model;
+            ModelYear = modelYear;
         }
 
 

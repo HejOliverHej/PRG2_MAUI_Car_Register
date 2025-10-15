@@ -22,10 +22,10 @@ namespace PRG_MAUI_Car_Register
                 string manufacturer = entryManufacturer.Text;
                 string model = entryModel.Text;
                 string modelYear = entryModelYear.Text;
+                
+
 
                 Vehicle vehicle;
-
-
 
                 switch ((Vehicle.Type)pickerType.SelectedIndex)
                 {
