@@ -16,14 +16,35 @@ namespace PRG_MAUI_Car_Register
         {
             try
             {
-                Vehicle vehicle = new Vehicle((Vehicle.Type)pickerType.SelectedIndex);
 
+       
                 string regNr = entryRegistrationNumber.Text;
-                vehicle.RegistrationNumber = regNr;
-                vehicle.Manufacturer = entryManufacturer.Text;
-                vehicle.Model = entryModel.Text;
-                vehicle.ModelYear = entryModelYear.Text;
-                
+                string manufacturer = entryManufacturer.Text;
+                string model = entryModel.Text;
+                string modelYear = entryModelYear.Text;
+
+                Vehicle vehicle;
+
+
+
+                switch ((Vehicle.Type)pickerType.SelectedIndex)
+                {
+                    case Vehicle.Type.Bil:
+                        vehicle = new Car(regNr, manufacturer, model, modelYear, doors: 4); 
+                        break;
+
+                    case Vehicle.Type.MC:
+                        vehicle = new MC(regNr, manufacturer, model, modelYear, category: "Sport"); 
+                        break;
+
+                    case Vehicle.Type.Lastbil:
+                        vehicle = new Truck(regNr, manufacturer, model, modelYear, loadCapacity: 10.0); 
+                        break;
+
+                    default:
+                        throw new ArgumentException("Ogiltig fordonstypp");
+                }
+
 
                 vehicleList.Add(vehicle);
                 listViewVehicles.ItemsSource = null;
@@ -44,7 +65,6 @@ namespace PRG_MAUI_Car_Register
         {
             if (e.Value != true) return;
 
-            // Skapa en filtrerad lista baserat på vilken radioknapp som är vald
             List<Vehicle> filteredList;
 
             if (radioCar.IsChecked)

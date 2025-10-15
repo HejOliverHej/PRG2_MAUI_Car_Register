@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace PRG_MAUI_Car_Register.Model
 {
-    internal class Car
+    internal class Car : Vehicle
     {
+
+        public int Doors;
+        public Car(string registrationNumber, string manufacturer, string model, string modelYear, int doors)
+    :   base(Type.Bil, registrationNumber, manufacturer, model, modelYear)
+        {
+            Doors = doors;
+        }
+
     }
 }

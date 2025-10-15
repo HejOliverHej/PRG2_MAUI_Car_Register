@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
-namespace PRG_MAUI_Car_Register
+namespace PRG_MAUI_Car_Register.Model
 {
-    class Vehicle
+    abstract class Vehicle
     {
         public enum Type { Bil, MC, Lastbil };
         private Type vehicleType;
@@ -10,9 +10,13 @@ namespace PRG_MAUI_Car_Register
         private string model = string.Empty;
         private string modelYear = string.Empty;
 
-        public Vehicle(Type vehicleType) 
+        public Vehicle(Type vehicleType, string registrationNumber, string manufacturer, string model, string modelYear) 
         {
             this.vehicleType = vehicleType;
+            registrationNumber = registrationNumber;
+            manufacturer = manufacturer;
+            model = model;
+            modelYear = modelYear;
         }
 
 
@@ -56,7 +60,7 @@ namespace PRG_MAUI_Car_Register
         public Type VehicleType
         {
             get { return vehicleType; }
-            set { this.vehicleType = value; }
+            set { vehicleType = value; }
         }
 
         public string Model
@@ -72,7 +76,7 @@ namespace PRG_MAUI_Car_Register
                 {
                     throw new ArgumentException("Modellen får endast innehålla bokstäver, siffror, mellanslag.");
                 }
-                this.model = value;
+                model = value;
             }
         }
 
@@ -97,7 +101,7 @@ namespace PRG_MAUI_Car_Register
                 {
                     throw new ArgumentException("Märket får endast innehålla bokstäver, siffror, mellanslag och bindestreck.");
                 }
-                this.manufacturer = value;
+                manufacturer = value;
             }
         }
 
@@ -144,7 +148,7 @@ namespace PRG_MAUI_Car_Register
                 {
                     throw new ArgumentException("DIN bil kan inte vara yngre än 1886 för att det var då blien uppfanns");
                 }
-                this.modelYear = value;
+                modelYear = value;
             }
         }
 
@@ -153,7 +157,7 @@ namespace PRG_MAUI_Car_Register
 
         public override string ToString()
         {
-            return this.registrationNumber + "\t" + this.vehicleType + "\t" + this.manufacturer + "\t" + this.model + "\t" + this.modelYear;
+            return registrationNumber + "\t" + vehicleType + "\t" + manufacturer + "\t" + model + "\t" + modelYear;
         }
     }
 }
