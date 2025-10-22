@@ -81,7 +81,6 @@ namespace PRG_MAUI_Car_Register
             }
             else
             {
-                // Om "Alla" är vald, visa hela listan
                 filteredList = vehicleList;
             }
 
