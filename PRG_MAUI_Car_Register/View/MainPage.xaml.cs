@@ -20,8 +20,9 @@ namespace PRG_MAUI_Car_Register
             entryDoors.IsVisible = false;
             entryCategory.IsVisible = false;
             entryLoadCapacity.IsVisible = false;
+            
 
-            switch(selectedTypeofvehiclae){
+            switch (selectedTypeofvehiclae){
                 case "Bil":
                     entryDoors.IsVisible = true;
                     break;
@@ -32,6 +33,9 @@ namespace PRG_MAUI_Car_Register
                     entryLoadCapacity.IsVisible = true;
                     break;
             }
+            entryDoors.Text = string.Empty;
+            entryCategory.Text = string.Empty;
+            entryLoadCapacity.Text = string.Empty;
 
         }
         private void OnRegisterClicked(object sender, EventArgs e)
@@ -44,21 +48,21 @@ namespace PRG_MAUI_Car_Register
                 string manufacturer = entryManufacturer.Text;
                 string model = entryModel.Text;
                 string modelYear = entryModelYear.Text;
-                
-
+                string doors = entryDoors.Text;
+                string category = entryCategory.Text;
+                string LoadCapacity = entryLoadCapacity.Text;
 
                 Vehicle vehicle;
-
                 string selectedType = pickerType.SelectedItem?.ToString();
 
                 switch (selectedType)
                 {
                     case "Bil":
-                        vehicle = new Car(regNr, manufacturer, model, modelYear, doors: "4"); 
+                        vehicle = new Car(regNr, manufacturer, model, modelYear, doors); 
                         break;
 
                     case "MC":
-                        vehicle = new MC(regNr, manufacturer, model, modelYear, category: "Sport"); 
+                        vehicle = new MC(regNr, manufacturer, model, modelYear, category); 
                         break;
 
                     case "Lastbil":
@@ -78,6 +82,9 @@ namespace PRG_MAUI_Car_Register
                 entryManufacturer.Text = string.Empty;
                 entryModel.Text = string.Empty;
                 entryModelYear.Text = string.Empty;
+                entryDoors.Text = string.Empty;
+                entryCategory.Text = string.Empty;
+                entryLoadCapacity.Text = string.Empty;
             }
             catch (ArgumentException ex)
             {
