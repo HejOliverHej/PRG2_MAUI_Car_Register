@@ -1,5 +1,6 @@
 ﻿using PRG_MAUI_Car_Register.Model;
 
+
 namespace PRG_MAUI_Car_Register
 {
     public partial class MainPage : ContentPage
@@ -12,6 +13,27 @@ namespace PRG_MAUI_Car_Register
             pickerType.SelectedIndex = 0;
         }
 
+        private void OnPickerTypeChanged(object sender, EventArgs e)
+        {
+            string selectedTypeofvehiclae = pickerType.SelectedItem?.ToString();
+
+            entryDoors.IsVisible = false;
+            entryCategory.IsVisible = false;
+            entryLoadCapacity.IsVisible = false;
+
+            switch(selectedTypeofvehiclae){
+                case "Bil":
+                    entryDoors.IsVisible = true;
+                    break;
+                case "MC":
+                    entryCategory.IsVisible = true;
+                    break;
+                case "Lastbil":
+                    entryLoadCapacity.IsVisible = true;
+                    break;
+            }
+
+        }
         private void OnRegisterClicked(object sender, EventArgs e)
         {
             try
@@ -32,7 +54,7 @@ namespace PRG_MAUI_Car_Register
                 switch (selectedType)
                 {
                     case "Bil":
-                        vehicle = new Car(regNr, manufacturer, model, modelYear, doors: 4); 
+                        vehicle = new Car(regNr, manufacturer, model, modelYear, doors: "4"); 
                         break;
 
                     case "MC":

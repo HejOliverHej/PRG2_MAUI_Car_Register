@@ -10,7 +10,7 @@
             <HorizontalStackLayout Spacing="20" HorizontalOptions="StartAndExpand">
                 <Entry x:Name="entryRegistrationNumber" Placeholder="Registreringsnummer" />
                 <Label Text="Välj typ:" VerticalOptions="Center"/>
-                <Picker x:Name="pickerType" TextColor="DarkRed">
+                <Picker x:Name="pickerType" TextColor="DarkRed" SelectedIndexChanged="OnPickerTypeChanged">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Bil</x:String>

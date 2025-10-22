@@ -9,11 +9,26 @@ namespace PRG_MAUI_Car_Register.Model
     internal class Car : Vehicle
     {
 
-        public int Doors;
-        public Car(string registrationNumber, string manufacturer, string model, string modelYear, int doors)
+        public string doors = string.Empty;
+        public Car(string registrationNumber, string manufacturer, string model, string modelYear, string doors)
     :   base(registrationNumber, manufacturer, model, modelYear)
         {
             Doors = doors;
+        }
+        public string Doors
+        {
+            get { return doors; }
+
+
+            set {  doors = value; }
+
+
+        }
+
+        
+        public override string ToString()
+        {
+            return base.ToString() + $"\tDörrar: {Doors}";
         }
 
     }
