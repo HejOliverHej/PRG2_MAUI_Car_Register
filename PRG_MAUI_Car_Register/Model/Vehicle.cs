@@ -3,16 +3,14 @@ namespace PRG_MAUI_Car_Register.Model
 {
     abstract class Vehicle
     {
-        public enum Type { Bil, MC, Lastbil };
-        private Type vehicleType;
+        
         private string registrationNumber = string.Empty;
         private string manufacturer = string.Empty;
         private string model = string.Empty;
         private string modelYear = string.Empty;
 
-        public Vehicle(Type vehicleType, string registrationNumber, string manufacturer, string model, string modelYear) 
+        public Vehicle(string registrationNumber, string manufacturer, string model, string modelYear) 
         {
-            this.vehicleType = vehicleType;
             RegistrationNumber = registrationNumber;
             Manufacturer = manufacturer;
             Model = model;
@@ -57,11 +55,6 @@ namespace PRG_MAUI_Car_Register.Model
             }
         }
 
-        public Type VehicleType
-        {
-            get { return vehicleType; }
-            set { vehicleType = value; }
-        }
 
         public string Model
         {
@@ -157,7 +150,7 @@ namespace PRG_MAUI_Car_Register.Model
 
         public override string ToString()
         {
-            return registrationNumber + "\t" + vehicleType + "\t" + manufacturer + "\t" + model + "\t" + modelYear;
+            return registrationNumber + "\t" + manufacturer + "\t" + model + "\t" + modelYear;
         }
     }
 }

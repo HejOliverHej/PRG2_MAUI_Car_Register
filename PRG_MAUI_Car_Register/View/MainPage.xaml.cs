@@ -27,17 +27,19 @@ namespace PRG_MAUI_Car_Register
 
                 Vehicle vehicle;
 
-                switch ((Vehicle.Type)pickerType.SelectedIndex)
+                string selectedType = pickerType.SelectedItem?.ToString();
+
+                switch (selectedType)
                 {
-                    case Vehicle.Type.Bil:
+                    case "Bil":
                         vehicle = new Car(regNr, manufacturer, model, modelYear, doors: 4); 
                         break;
 
-                    case Vehicle.Type.MC:
+                    case "MC":
                         vehicle = new MC(regNr, manufacturer, model, modelYear, category: "Sport"); 
                         break;
 
-                    case Vehicle.Type.Lastbil:
+                    case "Lastbil":
                         vehicle = new Truck(regNr, manufacturer, model, modelYear, loadCapacity: 10.0); 
                         break;
 
@@ -69,15 +71,15 @@ namespace PRG_MAUI_Car_Register
 
             if (radioCar.IsChecked)
             {
-                filteredList = vehicleList.Where(v => v.VehicleType == Vehicle.Type.Bil).ToList();
+                filteredList = vehicleList.Where(v => v is Car).ToList();
             }
             else if (radioMC.IsChecked)
             {
-                filteredList = vehicleList.Where(v => v.VehicleType == Vehicle.Type.MC).ToList();
+                filteredList = vehicleList.Where(v => v is MC).ToList();
             }
             else if (radioTruck.IsChecked)
             {
-                filteredList = vehicleList.Where(v => v.VehicleType == Vehicle.Type.Lastbil).ToList();
+                filteredList = vehicleList.Where(v => v is Truck).ToList();
             }
             else
             {
@@ -101,12 +103,18 @@ namespace PRG_MAUI_Car_Register
 
             if (foundVehicle != null)
             {
+
+                string typ = foundVehicle is Car ? "Bil" :
+                             foundVehicle is MC ? "MC" :
+                             foundVehicle is Truck ? "Lastbil" :
+                             "Okänd";
+
                 labelSearchResult.Text = $"Fordon hittat:\n" +
                                          $"Registreringsnummer: {foundVehicle.RegistrationNumber}\n" +
                                          $"Tillverkare: {foundVehicle.Manufacturer}\n" +
                                          $"Modell: {foundVehicle.Model}\n" +
                                          $"Årsmodell: {foundVehicle.ModelYear}\n" +
-                                         $"Typ: {foundVehicle.VehicleType}";
+                                         $"Typ: {typ}";
             }
             else
             {

@@ -11,7 +11,7 @@ namespace PRG_MAUI_Car_Register.Model
     {
         public string Category;
         public MC(string registrationNumber, string manufacturer, string model, string modelYear, string category)
-    :    base(Type.MC, registrationNumber, manufacturer, model, modelYear)
+    :    base(registrationNumber, manufacturer, model, modelYear)
         {
             Category = category;
         }

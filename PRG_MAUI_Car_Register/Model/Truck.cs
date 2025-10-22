@@ -13,7 +13,7 @@ namespace PRG_MAUI_Car_Register.Model
         private double LoadCapacity;
 
         public Truck(string registrationNumber, string manufacturer, string model, string modelYear, double loadCapacity)
-    :    base(Type.Lastbil, registrationNumber, manufacturer, model, modelYear)
+    :    base(registrationNumber, manufacturer, model, modelYear)
         {
             LoadCapacity = loadCapacity;
         }
