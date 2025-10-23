@@ -19,17 +19,12 @@ namespace PRG_MAUI_Car_Register.Model
         }
 
 
-
         public string LoadCapacity
         {
             get { return loadCapacity; }
 
-
             set { loadCapacity = value; }
-
-
         }
-
 
         public override string ToString()
         {

@@ -16,19 +16,12 @@ namespace PRG_MAUI_Car_Register.Model
             Category = category;
         }
 
-
         public string Category
         {
             get { return category; }
 
-
-            set
-            { category = value;
-            }
-
-
+            set { category = value;}
         }
-
 
         public override string ToString()
         {
