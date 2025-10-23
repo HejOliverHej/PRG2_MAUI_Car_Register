@@ -50,7 +50,8 @@ namespace PRG_MAUI_Car_Register
                 string modelYear = entryModelYear.Text;
                 string doors = entryDoors.Text;
                 string category = entryCategory.Text;
-                string LoadCapacity = entryLoadCapacity.Text;
+                string loadCapacity = entryLoadCapacity.Text;
+
 
                 Vehicle vehicle;
                 string selectedType = pickerType.SelectedItem?.ToString();
@@ -66,7 +67,7 @@ namespace PRG_MAUI_Car_Register
                         break;
 
                     case "Lastbil":
-                        vehicle = new Truck(regNr, manufacturer, model, modelYear, loadCapacity: 10.0); 
+                        vehicle = new Truck(regNr, manufacturer, model, modelYear, loadCapacity); 
                         break;
 
                     default:
@@ -138,12 +139,31 @@ namespace PRG_MAUI_Car_Register
                              foundVehicle is Truck ? "Lastbil" :
                              "Okänd";
 
+
+                string ExtraInfo = string.Empty;
+
+                if (foundVehicle is Car car)
+                {
+                    ExtraInfo = $"Antal dörrar: {car.Doors}";
+                }
+                else if (foundVehicle is MC mc)
+                {
+                    ExtraInfo = $"Kategori: {mc.Category}";
+                }
+                else if (foundVehicle is Truck truck)
+                {
+                    ExtraInfo = $"Lastkapacitet: {truck.LoadCapacity} ton";
+                }
+
+
                 labelSearchResult.Text = $"Fordon hittat:\n" +
                                          $"Registreringsnummer: {foundVehicle.RegistrationNumber}\n" +
                                          $"Tillverkare: {foundVehicle.Manufacturer}\n" +
                                          $"Modell: {foundVehicle.Model}\n" +
                                          $"Årsmodell: {foundVehicle.ModelYear}\n" +
-                                         $"Typ: {typ}";
+                                         $"Typ: {typ}\n" +
+                                         $"{ExtraInfo}";
+
             }
             else
             {

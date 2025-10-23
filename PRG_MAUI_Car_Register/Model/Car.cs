@@ -20,7 +20,10 @@ namespace PRG_MAUI_Car_Register.Model
             get { return doors; }
 
 
-            set {  doors = value; }
+            set {
+                
+
+                doors = value; }
 
 
         }
@@ -28,7 +31,7 @@ namespace PRG_MAUI_Car_Register.Model
         
         public override string ToString()
         {
-            return base.ToString() + $"\tDörrar: {Doors}";
+            return base.ToString() + $"\t {Doors}";
         }
 
     }

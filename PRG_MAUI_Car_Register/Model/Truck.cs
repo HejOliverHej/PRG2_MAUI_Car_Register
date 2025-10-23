@@ -10,12 +10,30 @@ namespace PRG_MAUI_Car_Register.Model
     internal class Truck : Vehicle
     {
 
-        private double LoadCapacity;
+        private string loadCapacity = string.Empty;
 
-        public Truck(string registrationNumber, string manufacturer, string model, string modelYear, double loadCapacity)
+        public Truck(string registrationNumber, string manufacturer, string model, string modelYear, string loadCapacity)
     :    base(registrationNumber, manufacturer, model, modelYear)
         {
             LoadCapacity = loadCapacity;
+        }
+
+
+
+        public string LoadCapacity
+        {
+            get { return loadCapacity; }
+
+
+            set { loadCapacity = value; }
+
+
+        }
+
+
+        public override string ToString()
+        {
+            return base.ToString() + $"\t {loadCapacity}";
         }
     }
 }
