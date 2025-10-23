@@ -23,7 +23,7 @@
             <Entry x:Name="entryManufacturer" Placeholder="Tillverkare" />
             <Entry x:Name="entryModel" Placeholder="Modell" />
             <Entry x:Name="entryModelYear" Placeholder="Årsmodell"/>
-            <Entry x:Name="entryDoors" Placeholder="Antal dörrar" IsVisible="False"/>
+            <Entry x:Name="entryDoors" Placeholder="Antal dörrar" IsVisible="False" Keyboard="Numeric"/>
             <Entry x:Name="entryLoadCapacity" Placeholder="Lastkapacitet i ton" IsVisible="False"/>
             <Entry x:Name="entryCategory" Placeholder="Categori" IsVisible="False"/>
             <Button x:Name="buttonRegister" Text="Registrera" Clicked="OnRegisterClicked" Margin="0,0,0,20" BackgroundColor="DarkRed"/>

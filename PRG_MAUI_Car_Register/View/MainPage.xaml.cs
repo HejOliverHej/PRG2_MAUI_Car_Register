@@ -48,9 +48,17 @@ namespace PRG_MAUI_Car_Register
                 string manufacturer = entryManufacturer.Text;
                 string model = entryModel.Text;
                 string modelYear = entryModelYear.Text;
-                string doors = entryDoors.Text;
+                if (!int.TryParse(entryDoors.Text, out int doors))
+                {
+                    throw new ArgumentException("Antal dörrar måste vara ett heltal.");
+                }
                 string category = entryCategory.Text;
-                string loadCapacity = entryLoadCapacity.Text;
+
+                if (!double.TryParse(entryLoadCapacity.Text, out double loadCapacity))
+                {
+                    throw new ArgumentException("Antal dörrar måste vara ett heltal.");
+                }
+                
 
 
                 Vehicle vehicle;
