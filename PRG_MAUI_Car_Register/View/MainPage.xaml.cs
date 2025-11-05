@@ -48,16 +48,8 @@ namespace PRG_MAUI_Car_Register
                 string manufacturer = entryManufacturer.Text;
                 string model = entryModel.Text;
                 string modelYear = entryModelYear.Text;
-                if (!int.TryParse(entryDoors.Text, out int doors))
-                {
-                    throw new ArgumentException("Antal dörrar måste vara ett heltal.");
-                }
                 string category = entryCategory.Text;
-
-                if (!double.TryParse(entryLoadCapacity.Text, out double loadCapacity))
-                {
-                    throw new ArgumentException("Antal dörrar måste vara ett heltal.");
-                }
+               
                 
 
 
@@ -67,6 +59,10 @@ namespace PRG_MAUI_Car_Register
                 switch (selectedType)
                 {
                     case "Bil":
+                        if (!int.TryParse(entryDoors.Text, out int doors))
+                        {
+                            throw new ArgumentException("Antal dörrar måste vara ett heltal.");
+                        }
                         vehicle = new Car(regNr, manufacturer, model, modelYear, doors); 
                         break;
 
@@ -75,6 +71,10 @@ namespace PRG_MAUI_Car_Register
                         break;
 
                     case "Lastbil":
+                        if (!double.TryParse(entryLoadCapacity.Text, out double loadCapacity))
+                        {
+                            throw new ArgumentException("Antal dörrar måste vara ett heltal.");
+                        }
                         vehicle = new Truck(regNr, manufacturer, model, modelYear, loadCapacity); 
                         break;
 
