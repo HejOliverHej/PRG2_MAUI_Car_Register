@@ -3,6 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PRG_MAUI_Car_Register.MainPage">
 
+
+
+
+    <ContentPage.BindingContext>
+        <ViewModel:VehicleViewModel />
+    </ContentPage.BindingContext>
+
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="10">
             <Image Source="car.jpg" Aspect="AspectFit" HeightRequest="150" Margin="0,0,0,20"/>
@@ -20,8 +27,8 @@
                 </Picker.ItemsSource>
             </Picker>
             </HorizontalStackLayout>
-            <Entry x:Name="entryManufacturer" Placeholder="Tillverkare" />
-            <Entry x:Name="entryModel" Placeholder="Modell" />
+            <Entry x:Name="entryManufacturer" Placeholder="Tillverkare" Text="{Binding Model}"/>
+            <Entry x:Name="entryModel" Placeholder="Modell" Text="{Binding Model}" />
             <Entry x:Name="entryModelYear" Placeholder="Årsmodell"/>
             <Entry x:Name="entryDoors" Placeholder="Antal dörrar" IsVisible="False" Keyboard="Numeric"/>
             <Entry x:Name="entryLoadCapacity" Placeholder="Lastkapacitet i ton" IsVisible="False"/>

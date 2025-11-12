@@ -7,7 +7,14 @@ using System.Threading.Tasks;
 
 namespace PRG_MAUI_Car_Register.ViewModel
 {
-    internal class BaseViewModel 
+    internal class BaseViewModel : INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
