@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PRG_MAUI_Car_Register.ViewModel
 {
-    internal class BaseViewModel
+    internal class BaseViewModel 
     {
     }
 }
