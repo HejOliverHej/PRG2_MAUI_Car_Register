@@ -15,7 +15,7 @@
             <Image Source="car.jpg" Aspect="AspectFit" HeightRequest="150" Margin="0,0,0,20"/>
             
             <HorizontalStackLayout Spacing="20" HorizontalOptions="StartAndExpand">
-                <Entry x:Name="entryRegistrationNumber" Placeholder="Registreringsnummer" />
+                <Entry Text="{Binding RegNR}" Placeholder="Registreringsnummer" />
                 <Label Text="Välj typ:" VerticalOptions="Center"/>
                 <Picker x:Name="pickerType" TextColor="DarkRed" SelectedIndexChanged="OnPickerTypeChanged">
                 <Picker.ItemsSource>
@@ -27,13 +27,13 @@
                 </Picker.ItemsSource>
             </Picker>
             </HorizontalStackLayout>
-            <Entry x:Name="entryManufacturer" Placeholder="Tillverkare" Text="{Binding Model}"/>
-            <Entry x:Name="entryModel" Placeholder="Modell" Text="{Binding Model}" />
+            <Entry x:Name="entryManufacturer" Placeholder="Tillverkare" />
+            <Entry x:Name="entryModel" Placeholder="Modell"  />
             <Entry x:Name="entryModelYear" Placeholder="Årsmodell"/>
             <Entry x:Name="entryDoors" Placeholder="Antal dörrar" IsVisible="False" Keyboard="Numeric"/>
             <Entry x:Name="entryLoadCapacity" Placeholder="Lastkapacitet i ton" IsVisible="False"/>
             <Entry x:Name="entryCategory" Placeholder="Categori" IsVisible="False"/>
-            <Button x:Name="buttonRegister" Text="Registrera" Clicked="OnRegisterClicked" Margin="0,0,0,20" BackgroundColor="DarkRed"/>
+            <Button x:Name="buttonRegister" Text="Registrera" Command="OnRegisterCommand" Margin="0,0,0,20" BackgroundColor="DarkRed"/>
 
             <Label Text="Kategori:" FontAttributes="Bold" />
             <HorizontalStackLayout HorizontalOptions="Center" Margin="0,0,0,20" Spacing="10" >
