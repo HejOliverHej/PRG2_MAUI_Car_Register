@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:PRG_MAUI_Car_Register.ViewModel"
              x:Class="PRG_MAUI_Car_Register.MainPage">
 
 
 
 
     <ContentPage.BindingContext>
-        <ViewModel:VehicleViewModel />
+        <viewModel:VehicleViewModel />
     </ContentPage.BindingContext>
 
     <ScrollView>
@@ -15,41 +16,47 @@
             <Image Source="car.jpg" Aspect="AspectFit" HeightRequest="150" Margin="0,0,0,20"/>
             
             <HorizontalStackLayout Spacing="20" HorizontalOptions="StartAndExpand">
-                <Entry Text="{Binding RegNR}" Placeholder="Registreringsnummer" />
+                <Entry Text="{Binding RegNr}" Placeholder="Registreringsnummer" />
                 <Label Text="Välj typ:" VerticalOptions="Center"/>
-                <Picker x:Name="pickerType" TextColor="DarkRed" SelectedIndexChanged="OnPickerTypeChanged">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Bil</x:String>
-                        <x:String>MC</x:String>
-                        <x:String>Lastbil</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                <Picker ItemsSource="{Binding VehicleTypes}"
+                    SelectedItem="{Binding SelectedType}"
+                    Title="Välj typ"
+                    TextColor="DarkRed" />
             </HorizontalStackLayout>
-            <Entry x:Name="entryManufacturer" Placeholder="Tillverkare" />
-            <Entry x:Name="entryModel" Placeholder="Modell"  />
-            <Entry x:Name="entryModelYear" Placeholder="Årsmodell"/>
-            <Entry x:Name="entryDoors" Placeholder="Antal dörrar" IsVisible="False" Keyboard="Numeric"/>
-            <Entry x:Name="entryLoadCapacity" Placeholder="Lastkapacitet i ton" IsVisible="False"/>
-            <Entry x:Name="entryCategory" Placeholder="Categori" IsVisible="False"/>
-            <Button x:Name="buttonRegister" Text="Registrera" Command="OnRegisterCommand" Margin="0,0,0,20" BackgroundColor="DarkRed"/>
+            <Entry Text="{Binding Manufacturer}" Placeholder="Tillverkare" />
+            <Entry Text="{Binding Model}" Placeholder="Modell"  />
+            <Entry Text="{Binding ModelYear}" Placeholder="Årsmodell"/>
+            <Entry Text="{Binding Doors}" Placeholder="Antal dörrar" IsVisible="{Binding ShowDoors}"  Keyboard="Numeric"/>
+            <Entry Text="{Binding LoadCapacity}" Placeholder="Lastkapacitet i ton" IsVisible="{Binding ShowLoadCapacity}" />
+            <Entry Text="{Binding Category}" Placeholder="Categori" IsVisible="{Binding ShowCategory }"/>
+            <Button Text="Registrera" Command="{Binding OnRegisterCommand}" Margin="0,0,0,20" BackgroundColor="DarkRed"/>
 
             <Label Text="Kategori:" FontAttributes="Bold" />
-            <HorizontalStackLayout HorizontalOptions="Center" Margin="0,0,0,20" Spacing="10" >
-                <RadioButton x:Name="radioAll" Content="Alla" IsChecked="True" CheckedChanged="OnRadioCheckedChanged" />
-                <RadioButton x:Name="radioCar" Content="Bilar" CheckedChanged="OnRadioCheckedChanged" />
-                <RadioButton x:Name="radioMC" Content="MC" CheckedChanged="OnRadioCheckedChanged" />
-                <RadioButton x:Name="radioTruck" Content="Lastbil" CheckedChanged="OnRadioCheckedChanged" />
+            <HorizontalStackLayout HorizontalOptions="Center" Margin="0,0,0,20" Spacing="10">
+                
             </HorizontalStackLayout>
 
-            <ListView x:Name="listViewVehicles" Margin="0,0,0,20"/>
+
+            <ListView ItemsSource="{Binding Vehicles}" Margin="0,0,0,20">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding RegistrationNumber}" Detail="{Binding Manufacturer}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <HorizontalStackLayout HorizontalOptions="FillAndExpand" Spacing="20">
-                <Entry x:Name="entrySearchRegistrationNumber" HorizontalOptions="FillAndExpand" Placeholder="Sök på registreringsnummer"></Entry>
-                <Button x:Name="buttonSearch" Text="Sök" HorizontalOptions="End" BackgroundColor="DarkRed" TextColor="White" Clicked="OnSearchClicked"/>
+                <Entry Text="{Binding SearchTerm}" 
+                       HorizontalOptions="FillAndExpand" 
+                       Placeholder="Sök på registreringsnummer"/>
+                <Button Text="Sök" 
+                        Command="{Binding SearchCommand}" 
+                        CommandParameter="{Binding SearchTerm}"
+                        BackgroundColor="DarkRed" 
+                        TextColor="White"/>
             </HorizontalStackLayout>
-            <Label x:Name="labelSearchResult" Text="Sökresultat visas här..." TextColor="DarkRed" Margin="0,20,0,0"/>
+
+            <Label Text="{Binding SearchResult}" TextColor="DarkRed" Margin="0,20,0,0"/>
         </VerticalStackLayout>
     </ScrollView>
 

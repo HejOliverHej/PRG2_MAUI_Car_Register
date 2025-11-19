@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Graphics;
-using ObjCBindings;
 using PRG_MAUI_Car_Register.Model;
 using System;
 using System.Collections.Generic;
@@ -17,9 +16,12 @@ namespace PRG_MAUI_Car_Register.ViewModel
         private string manufacturer { get; set; }
         private string model { get; set; }
         private string modelYear { get; set; }
-        private string doors { get; set; }
+        private int doors { get; set; }
         private string category { get; set; }
         private double loadCapacity { get; set; }
+
+        private string selectedType;
+        
 
 
         public string RegNr
@@ -46,32 +48,65 @@ namespace PRG_MAUI_Car_Register.ViewModel
 
             set { modelYear = value; OnPropertyChanged(nameof(ModelYear)); }
         }
-        public string Doors
+        public int Doors
         {
             get { return doors; }
 
             set { doors = value; OnPropertyChanged(nameof(Doors)); }
         }
-        public string Varible
+
+        public string SelectedType
         {
-            get { return varible; }
-
-            set { varible = value; OnPropertyChanged(nameof(varible)); }
+            get => selectedType;
+            set { selectedType = value; OnPropertyChanged(nameof(selectedType)); UpdateVisibility(); }
         }
-        public string Varible
+        private bool showDoors;
+        public bool ShowDoors
         {
-            get { return varible; }
-
-            set { varible = value; OnPropertyChanged(nameof(varible)); }
+            get => showDoors;
+            set { showDoors = value; OnPropertyChanged(nameof(showDoors)); }
         }
 
-        public ObservableCollection<Vehicle> vehicleList { get; set; } = new();
+        private bool showCategory;
+        public bool ShowCategory
+        {
+            get => showCategory;
+            set { showCategory = value; OnPropertyChanged(nameof(showCategory)); }
+        }
 
-        public ICommand OnRegisterCommand {get; }
+        private bool showLoadCapacity;
+        public bool ShowLoadCapacity
+        {
+            get => showLoadCapacity;
+            set { showLoadCapacity = value; OnPropertyChanged(nameof(showLoadCapacity)); }
+        }
 
+        private string searchResult;
+        public string SearchResult
+        {
+            get => searchResult;
+            set { searchResult = value; OnPropertyChanged(nameof(searchResult)); }
+        }
+
+
+        public ObservableCollection<string> VehicleTypes { get; } = new ObservableCollection<string> { "Bil", "MC", "Lastbil" };
+        public ObservableCollection<Vehicle> vehicleslist { get; } = new ObservableCollection<Vehicle>();
+
+        public ICommand OnRegisterCommand { get; }
+        public ICommand SearchCommand { get; }
+        public ICommand FilterCommand { get; }
         public VehicleViewModel()
         {
             OnRegisterCommand = new Command(RegisterCommand);
+            SearchCommand = new Command<string>(SearchVehicle);
+            FilterCommand = new Command<string>(FilterVehicles);
+        }
+
+        private void UpdateVisibility()
+        {
+            ShowDoors = SelectedType == "Bil";
+            ShowCategory = SelectedType == "MC";
+            ShowLoadCapacity = SelectedType == "Lastbil";
         }
 
 
@@ -82,36 +117,24 @@ namespace PRG_MAUI_Car_Register.ViewModel
 
 
                 Vehicle vehicle;
-                string selectedType = pickerType.SelectedItem?.ToString();
 
-                switch (selectedType)
+                switch (SelectedType)
                 {
                     case "Bil":
-                        if (!int.TryParse(doors, out int doors))
-                        {
-                            throw new ArgumentException("Antal dörrar måste vara ett heltal.");
-                        }
                         vehicle = new Car(regNr, manufacturer, model, modelYear, doors);
                         break;
-
                     case "MC":
                         vehicle = new MC(regNr, manufacturer, model, modelYear, category);
                         break;
-
                     case "Lastbil":
-                        if (!double.TryParse(loadCapacity, out double loadCapacity))
-                        {
-                            throw new ArgumentException("Antal dörrar måste vara ett heltal.");
-                        }
                         vehicle = new Truck(regNr, manufacturer, model, modelYear, loadCapacity);
                         break;
-
                     default:
                         throw new ArgumentException("Ogiltig fordonstypp");
                 }
 
 
-                vehicleList.Add(vehicle);
+                vehicleslist.Add(vehicle);
                 
 
                 regNr = string.Empty;
@@ -124,11 +147,44 @@ namespace PRG_MAUI_Car_Register.ViewModel
             }
             catch (ArgumentException ex)
             {
-                DisplayAlert("Fel", ex.Message, "OK");
+                SearchResult = $"Fel: {ex.Message}";
             }
 
         }
+        private void SearchVehicle(string regNr)
+        {
+            var found = vehicleslist.FirstOrDefault(v => v.RegistrationNumber?.ToLower() == regNr?.ToLower());
+            if (found != null)
+            {
+                string typ = found is Car ? "Bil" : found is MC ? "MC" : found is Truck ? "Lastbil" : "Okänd";
+                string extra = found switch
+                {
+                    Car car => $"Antal dörrar: {car.Doors}",
+                    MC mc => $"Kategori: {mc.Category}",
+                    Truck truck => $"Lastkapacitet: {truck.LoadCapacity} ton",
+                    _ => string.Empty
+                };
+                SearchResult = $"Fordon hittat:\n{found.RegistrationNumber}, {found.Manufacturer}, {found.Model}, {found.ModelYear}, Typ: {typ}, {extra}";
+            }
+            else
+            {
+                SearchResult = "Inget fordon hittades.";
+            }
+        }
 
+        private void FilterVehicles(string filter)
+        {
+            var filtered = filter switch
+            {
+                "Bil" => vehicleslist.Where(v => v is Car).ToList(),
+                "MC" => vehicleslist.Where(v => v is MC).ToList(),
+                "Lastbil" => vehicleslist.Where(v => v is Truck).ToList(),
+                _ => vehicleslist.ToList()
+            };
 
+            vehicleslist.Clear();
+            foreach (var v in filtered)
+                vehicleslist.Add(v);
+        }
     }
 }
