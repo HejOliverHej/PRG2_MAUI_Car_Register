@@ -13,6 +13,7 @@ namespace PRG_MAUI_Car_Register.Model
         public Car(string registrationNumber, string manufacturer, string model, string modelYear, int doors)
     :   base(registrationNumber, manufacturer, model, modelYear)
         {
+           
             Doors = doors;
         }
         public int Doors

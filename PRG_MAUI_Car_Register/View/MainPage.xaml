@@ -20,7 +20,6 @@
                 <Label Text="Välj typ:" VerticalOptions="Center"/>
                 <Picker ItemsSource="{Binding VehicleTypes}"
                     SelectedItem="{Binding SelectedType}"
-                    Title="Välj typ"
                     TextColor="DarkRed" />
             </HorizontalStackLayout>
             <Entry Text="{Binding Manufacturer}" Placeholder="Tillverkare" />

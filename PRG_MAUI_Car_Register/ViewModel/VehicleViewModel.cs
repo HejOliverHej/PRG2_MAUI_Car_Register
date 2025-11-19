@@ -13,13 +13,12 @@ namespace PRG_MAUI_Car_Register.ViewModel
     internal class VehicleViewModel : BaseViewModel
     {
         private string regNr;
-        private string manufacturer { get; set; }
-        private string model { get; set; }
-        private string modelYear { get; set; }
-        private int doors { get; set; }
-        private string category { get; set; }
-        private double loadCapacity { get; set; }
-
+        private string manufacturer;
+        private string model;
+        private string modelYear;
+        private string doors;
+        private string category;
+        private string loadCapacity;
         private string selectedType;
         
 
@@ -48,11 +47,23 @@ namespace PRG_MAUI_Car_Register.ViewModel
 
             set { modelYear = value; OnPropertyChanged(nameof(ModelYear)); }
         }
-        public int Doors
+        public string Doors
         {
             get { return doors; }
 
             set { doors = value; OnPropertyChanged(nameof(Doors)); }
+        }
+        public string Category
+        {
+            get { return category; }
+
+            set { category = value; OnPropertyChanged(nameof(Category)); }
+        }
+        public string LoadCapacity
+        {
+            get { return loadCapacity; }
+
+            set { loadCapacity = value; OnPropertyChanged(nameof(LoadCapacity)); }
         }
 
         public string SelectedType
@@ -137,13 +148,13 @@ namespace PRG_MAUI_Car_Register.ViewModel
                 vehicleslist.Add(vehicle);
                 
 
-                regNr = string.Empty;
-                manufacturer = string.Empty;
-                model = string.Empty;
-                modelYear = string.Empty;
-                category = string.Empty;
-                doors = 0;
-                loadCapacity = 0;
+                RegNr = string.Empty;
+                Manufacturer = string.Empty;
+                Model = string.Empty;
+                ModelYear = string.Empty;
+                Category = string.Empty;
+                Doors = 0;
+                LoadCapacity = 0;
             }
             catch (ArgumentException ex)
             {
