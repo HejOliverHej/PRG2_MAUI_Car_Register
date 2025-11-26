@@ -32,17 +32,19 @@
 
             <Label Text="Kategori:" FontAttributes="Bold" />
             <HorizontalStackLayout HorizontalOptions="Center" Margin="0,0,0,20" Spacing="10">
-                
+
+                <ListView ItemsSource="{Binding vehicleslist}" Margin="0,0,0,20">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding RegistrationNumber}" Detail="{Binding Manufacturer}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
             </HorizontalStackLayout>
 
 
-            <ListView ItemsSource="{Binding vehicleslist}" Margin="0,0,0,20">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding RegistrationNumber}" Detail="{Binding Manufacturer}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            
 
             <HorizontalStackLayout HorizontalOptions="FillAndExpand" Spacing="20">
                 <Entry Text="{Binding SearchTerm}" 

@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
+﻿using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using PRG_MAUI_Car_Register.Model;
 using System;
@@ -120,6 +120,8 @@ namespace PRG_MAUI_Car_Register.ViewModel
             OnRegisterCommand = new Command(RegisterCommand);
             SearchCommand = new Command<string>(SearchVehicle);
             FilterCommand = new Command<string>(FilterVehicles);
+
+            SelectedType = "Bil";
         }
 
         private void UpdateVisibility()
@@ -127,10 +129,11 @@ namespace PRG_MAUI_Car_Register.ViewModel
             ShowDoors = SelectedType == "Bil";
             ShowCategory = SelectedType == "MC";
             ShowLoadCapacity = SelectedType == "Lastbil";
+            ResetFields();
         }
 
 
-        private void RegisterCommand()
+        private async void RegisterCommand()
         {
             try
             {
@@ -154,21 +157,27 @@ namespace PRG_MAUI_Car_Register.ViewModel
 
                 vehicleslist.Add(vehicle);
                 
-                RegNr = string.Empty;
-                Manufacturer = string.Empty;
-                Model = string.Empty;
-                ModelYear = string.Empty;
-                Category = string.Empty;
-                Doors = 0;
-                LoadCapacity = 0;
+                ResetFields();
             }
             catch (ArgumentException ex)
             {
-                SearchResult = $"Fel: {ex.Message}";
-                
+                await Application.Current.MainPage.DisplayAlert("Fel", ex.Message, "OK");
+
+
             }
 
         }
+        private void ResetFields()
+        {
+            RegNr = string.Empty;
+            Manufacturer = string.Empty;
+            Model = string.Empty;
+            ModelYear = string.Empty;
+            Category = string.Empty;
+            Doors = 0;
+            LoadCapacity = 0;
+        }
+
         private void SearchVehicle(string regNr)
         {
             var found = vehicleslist.FirstOrDefault(v =>
@@ -182,7 +191,7 @@ namespace PRG_MAUI_Car_Register.ViewModel
                     Car car => $"Antal dörrar: {car.Doors}",
                     MC mc => $"Kategori: {mc.Category}",
                     Truck truck => $"Lastkapacitet: {truck.LoadCapacity} ton",
-                    _ => string.Empty
+                    _  => string.Empty
                 };
                 SearchResult = $"Fordon hittat:\n{found.RegistrationNumber}, {found.Manufacturer}, {found.Model}, {found.ModelYear}, Typ: {typ}, {extra}";
             }
