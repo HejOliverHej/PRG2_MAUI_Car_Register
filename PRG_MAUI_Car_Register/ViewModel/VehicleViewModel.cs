@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Graphics;
+﻿using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
+using Microsoft.Maui.Graphics;
 using PRG_MAUI_Car_Register.Model;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace PRG_MAUI_Car_Register.ViewModel
         private string manufacturer;
         private string model;
         private string modelYear;
-        private string doors;
+        private int doors;
         private string category;
-        private string loadCapacity;
+        private double loadCapacity;
         private string selectedType;
         
 
@@ -47,7 +48,7 @@ namespace PRG_MAUI_Car_Register.ViewModel
 
             set { modelYear = value; OnPropertyChanged(nameof(ModelYear)); }
         }
-        public string Doors
+        public int Doors
         {
             get { return doors; }
 
@@ -59,7 +60,7 @@ namespace PRG_MAUI_Car_Register.ViewModel
 
             set { category = value; OnPropertyChanged(nameof(Category)); }
         }
-        public string LoadCapacity
+        public double LoadCapacity
         {
             get { return loadCapacity; }
 
@@ -69,35 +70,43 @@ namespace PRG_MAUI_Car_Register.ViewModel
         public string SelectedType
         {
             get => selectedType;
-            set { selectedType = value; OnPropertyChanged(nameof(selectedType)); UpdateVisibility(); }
+            set { selectedType = value; OnPropertyChanged(nameof(SelectedType)); UpdateVisibility(); }
         }
         private bool showDoors;
         public bool ShowDoors
         {
             get => showDoors;
-            set { showDoors = value; OnPropertyChanged(nameof(showDoors)); }
+            set { showDoors = value; OnPropertyChanged(nameof(ShowDoors)); }
         }
 
         private bool showCategory;
         public bool ShowCategory
         {
             get => showCategory;
-            set { showCategory = value; OnPropertyChanged(nameof(showCategory)); }
+            set { showCategory = value; OnPropertyChanged(nameof(ShowCategory)); }
         }
 
         private bool showLoadCapacity;
         public bool ShowLoadCapacity
         {
             get => showLoadCapacity;
-            set { showLoadCapacity = value; OnPropertyChanged(nameof(showLoadCapacity)); }
+            set { showLoadCapacity = value; OnPropertyChanged(nameof(ShowLoadCapacity)); }
         }
 
         private string searchResult;
         public string SearchResult
         {
             get => searchResult;
-            set { searchResult = value; OnPropertyChanged(nameof(searchResult)); }
+            set { searchResult = value; OnPropertyChanged(nameof(SearchResult)); }
         }
+
+        private string searchTerm;
+        public string SearchTerm
+        {
+            get => searchTerm;
+            set { searchTerm = value; OnPropertyChanged(nameof(SearchTerm)); }
+        }
+
 
 
         public ObservableCollection<string> VehicleTypes { get; } = new ObservableCollection<string> { "Bil", "MC", "Lastbil" };
@@ -126,7 +135,6 @@ namespace PRG_MAUI_Car_Register.ViewModel
             try
             {
 
-
                 Vehicle vehicle;
 
                 switch (SelectedType)
@@ -144,10 +152,8 @@ namespace PRG_MAUI_Car_Register.ViewModel
                         throw new ArgumentException("Ogiltig fordonstypp");
                 }
 
-
                 vehicleslist.Add(vehicle);
                 
-
                 RegNr = string.Empty;
                 Manufacturer = string.Empty;
                 Model = string.Empty;
@@ -159,12 +165,15 @@ namespace PRG_MAUI_Car_Register.ViewModel
             catch (ArgumentException ex)
             {
                 SearchResult = $"Fel: {ex.Message}";
+                
             }
 
         }
         private void SearchVehicle(string regNr)
         {
-            var found = vehicleslist.FirstOrDefault(v => v.RegistrationNumber?.ToLower() == regNr?.ToLower());
+            var found = vehicleslist.FirstOrDefault(v =>
+    string.Equals(v.RegistrationNumber, regNr, StringComparison.OrdinalIgnoreCase));
+
             if (found != null)
             {
                 string typ = found is Car ? "Bil" : found is MC ? "MC" : found is Truck ? "Lastbil" : "Okänd";
@@ -193,7 +202,7 @@ namespace PRG_MAUI_Car_Register.ViewModel
                 _ => vehicleslist.ToList()
             };
 
-            vehicleslist.Clear();
+            
             foreach (var v in filtered)
                 vehicleslist.Add(v);
         }
