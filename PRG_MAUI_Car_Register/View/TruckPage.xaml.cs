@@ -1,8 +1,8 @@
 namespace PRG_MAUI_Car_Register.View;
 
-public partial class Truck : ContentPage
+public partial class TruckPage : ContentPage
 {
-	public Truck()
+	public TruckPage()
 	{
 		InitializeComponent();
 	}

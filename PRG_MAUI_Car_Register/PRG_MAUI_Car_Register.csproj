@@ -69,7 +69,7 @@
 	  <MauiXaml Update="View\MCPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Truck.xaml">
+	  <MauiXaml Update="View\TruckPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
