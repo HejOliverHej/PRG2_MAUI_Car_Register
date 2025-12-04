@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
+using PRG_MAUI_Car_Register.ViewModel;
 
 #if WINDOWS
 using Microsoft.UI;
@@ -22,6 +23,7 @@ namespace PRG_MAUI_Car_Register
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
 
 #if DEBUG
             builder.Logging.AddDebug();

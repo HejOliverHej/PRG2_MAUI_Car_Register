@@ -21,6 +21,7 @@ namespace PRG_MAUI_Car_Register.ViewModel
         private string category;
         private double loadCapacity;
         private string selectedType;
+        private string selectedPage;
         
 
 
@@ -72,6 +73,11 @@ namespace PRG_MAUI_Car_Register.ViewModel
             get => selectedType;
             set { selectedType = value; OnPropertyChanged(nameof(SelectedType)); UpdateVisibility(); }
         }
+        public string SelectedPage
+        {
+            get => selectedPage;
+            set { selectedPage = value; OnPropertyChanged(nameof(SelectedPage)); ShowfilteredList(); }
+        }
         private bool showDoors;
         public bool ShowDoors
         {
@@ -107,10 +113,16 @@ namespace PRG_MAUI_Car_Register.ViewModel
             set { searchTerm = value; OnPropertyChanged(nameof(SearchTerm)); }
         }
 
+        public ObservableCollection<Vehicle> FilteredVehicles { get; } = new ObservableCollection<Vehicle>();
+
+
+
 
 
         public ObservableCollection<string> VehicleTypes { get; } = new ObservableCollection<string> { "Bil", "MC", "Lastbil" };
         public ObservableCollection<Vehicle> vehicleslist { get; } = new ObservableCollection<Vehicle>();
+
+        
 
         public ICommand OnRegisterCommand { get; }
         public ICommand SearchCommand { get; }
@@ -121,7 +133,15 @@ namespace PRG_MAUI_Car_Register.ViewModel
             SearchCommand = new Command<string>(SearchVehicle);
             FilterCommand = new Command<string>(FilterVehicles);
 
+            vehicleslist.Add(new Car("ABC123", "Volvo", "XC", "2020", 5));
+            vehicleslist.Add(new MC("XYZ789", "Yamaha", "MT", "2019", "Sport"));
+            vehicleslist.Add(new Truck("JKL456", "Scania", "R", "2021", 20));
+            vehicleslist.Add(new Car("jnb765", "Volvo", "XC", "2024", 6));
+
             SelectedType = "Bil";
+            SelectedPage = "Bil";
+
+            ShowfilteredList();
         }
 
         private void UpdateVisibility()
@@ -156,19 +176,22 @@ namespace PRG_MAUI_Car_Register.ViewModel
                 }
 
                 vehicleslist.Add(vehicle);
-                
+                ShowfilteredList();
+
                 ResetFields();
             }
             catch (ArgumentException ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Fel", ex.Message, "OK");
-
-
             }
+
 
         }
         private void ResetFields()
         {
+
+            
+
             RegNr = string.Empty;
             Manufacturer = string.Empty;
             Model = string.Empty;
@@ -203,17 +226,42 @@ namespace PRG_MAUI_Car_Register.ViewModel
 
         private void FilterVehicles(string filter)
         {
-            var filtered = filter switch
+            FilteredVehicles.Clear();
+
+            var list = filter switch
             {
-                "Bil" => vehicleslist.Where(v => v is Car).ToList(),
-                "MC" => vehicleslist.Where(v => v is MC).ToList(),
-                "Lastbil" => vehicleslist.Where(v => v is Truck).ToList(),
-                _ => vehicleslist.ToList()
+                "Bil" => vehicleslist.Where(v => v is Car),
+                "MC" => vehicleslist.Where(v => v is MC),
+                "Lastbil" => vehicleslist.Where(v => v is Truck),
+                _ => vehicleslist
             };
 
-            
-            foreach (var v in filtered)
-                vehicleslist.Add(v);
+            foreach (var item in list)
+            {
+                FilteredVehicles.Add(item);
+            }
         }
+
+
+
+        private void ShowfilteredList()
+        {
+            FilteredVehicles.Clear();
+            var list =
+    SelectedPage switch
+    {
+        "Bil" => vehicleslist.Where(v => v is Car),
+        "MC" => vehicleslist.Where(v => v is MC),
+        "Lastbil" => vehicleslist.Where(v => v is Truck),
+        _ => vehicleslist
+    };
+
+            foreach (var item in list)
+            {
+                FilteredVehicles.Add(item);
+            }
+
+        }
+
     }
 }
