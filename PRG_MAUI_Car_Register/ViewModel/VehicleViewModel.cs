@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PRG_MAUI_Car_Register.Service;
 
 namespace PRG_MAUI_Car_Register.ViewModel
 {
-    internal class VehicleViewModel : BaseViewModel
+    public class VehicleViewModel : BaseViewModel
     {
         private string regNr;
         private string manufacturer;
@@ -22,7 +23,9 @@ namespace PRG_MAUI_Car_Register.ViewModel
         private double loadCapacity;
         private string selectedType;
         private string selectedPage;
-        
+        private readonly IVehicleStorageService storageService;
+
+
 
 
         public string RegNr
@@ -129,6 +132,9 @@ namespace PRG_MAUI_Car_Register.ViewModel
         public ICommand FilterCommand { get; }
         public VehicleViewModel()
         {
+
+            storageService = new JsonVehicleStorageService();
+
             OnRegisterCommand = new Command(RegisterCommand);
             SearchCommand = new Command<string>(SearchVehicle);
             FilterCommand = new Command<string>(FilterVehicles);
@@ -137,6 +143,10 @@ namespace PRG_MAUI_Car_Register.ViewModel
             vehicleslist.Add(new MC("XYZ789", "Yamaha", "MT", "2019", "Sport"));
             vehicleslist.Add(new Truck("JKL456", "Scania", "R", "2021", 20));
             vehicleslist.Add(new Car("jnb765", "Volvo", "XC", "2024", 6));
+
+
+
+            LoadVehicles(); 
 
             SelectedType = "Bil";
             SelectedPage = "Bil";
@@ -151,6 +161,17 @@ namespace PRG_MAUI_Car_Register.ViewModel
             ShowLoadCapacity = SelectedType == "Lastbil";
             ResetFields();
         }
+        private async void LoadVehicles()
+        {
+            var loaded = await storageService.LoadAsync();
+
+            vehicleslist.Clear();
+            foreach (var v in loaded)
+                vehicleslist.Add(v);
+
+            ShowfilteredList();
+        }
+
 
 
         private async void RegisterCommand()
@@ -176,6 +197,7 @@ namespace PRG_MAUI_Car_Register.ViewModel
                 }
 
                 vehicleslist.Add(vehicle);
+                await storageService.SaveAsync(vehicleslist);
                 ShowfilteredList();
 
                 ResetFields();
@@ -248,13 +270,13 @@ namespace PRG_MAUI_Car_Register.ViewModel
         {
             FilteredVehicles.Clear();
             var list =
-    SelectedPage switch
-    {
-        "Bil" => vehicleslist.Where(v => v is Car),
-        "MC" => vehicleslist.Where(v => v is MC),
-        "Lastbil" => vehicleslist.Where(v => v is Truck),
-        _ => vehicleslist
-    };
+            SelectedPage switch
+            {
+                "Bil" => vehicleslist.Where(v => v is Car),
+                "MC" => vehicleslist.Where(v => v is MC),
+                "Lastbil" => vehicleslist.Where(v => v is Truck),
+                _ => vehicleslist
+            };
 
             foreach (var item in list)
             {

@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 namespace PRG_MAUI_Car_Register.Model
 {
-    abstract class Vehicle
+    public abstract class Vehicle
     {
         
         private string registrationNumber = string.Empty;

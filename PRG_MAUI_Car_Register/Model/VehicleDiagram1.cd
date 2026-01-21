@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PRG_MAUI_Car_Register.Model.Car" Collapsed="true">
+    <Position X="2" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAEAAAABAAAAAAA=</HashCode>
+      <FileName>Model\Car.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PRG_MAUI_Car_Register.Model.MC" Collapsed="true">
+    <Position X="5.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIAAAACAA=</HashCode>
+      <FileName>Model\MC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PRG_MAUI_Car_Register.Model.Truck" Collapsed="true">
+    <Position X="3.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAQAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Truck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PRG_MAUI_Car_Register.Model.Vehicle" Collapsed="true">
+    <Position X="3.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAIAAAAAAAEAAAAAAAAAAAAAGAAAAhgAAAIAAA=</HashCode>
+      <FileName>Model\Vehicle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
