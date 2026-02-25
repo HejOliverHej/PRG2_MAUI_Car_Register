@@ -36,8 +36,34 @@ namespace PRG_MAUI_Car_Register.Service
                 return new List<Vehicle>();
 
             var json = await File.ReadAllTextAsync(_filePath);
-            return JsonSerializer.Deserialize<List<Vehicle>>(json, _options)
-                   ?? new List<Vehicle>();
+
+            var rawList = JsonSerializer.Deserialize<List<JsonElement>>(json, _options);
+            var vehicles = new List<Vehicle>();
+
+            if (rawList == null)
+                return vehicles;
+
+            foreach (var element in rawList)
+            {
+                if (!element.TryGetProperty("Type", out var typeProp))
+                    continue;
+
+                var type = typeProp.GetString();
+
+                Vehicle v = type switch
+                {
+                    "Car" => element.Deserialize<Car>(_options),
+                    "MC" => element.Deserialize<MC>(_options),
+                    "Truck" => element.Deserialize<Truck>(_options),
+                    _ => null
+                };
+
+                if (v != null)
+                    vehicles.Add(v);
+            }
+
+            return vehicles;
         }
     }
 }
+

@@ -5,9 +5,7 @@
              xmlns:viewModel="clr-namespace:PRG_MAUI_Car_Register.ViewModel"
              Title="MCPage">
 
-    <ContentPage.BindingContext>
-        <viewModel:VehicleViewModel SelectedPage="MC" />
-    </ContentPage.BindingContext>
+   
 
     <HorizontalStackLayout HorizontalOptions="Center" Margin="0,0,0,20" Spacing="10">
 

@@ -1,12 +1,14 @@
-﻿namespace PRG_MAUI_Car_Register
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace PRG_MAUI_Car_Register
 {
     public partial class App : Application
     {
-        public App()
+        public App(AppShell shell)
         {
             InitializeComponent();
-
-            MainPage = new AppShell();
+            MainPage = shell;
         }
     }
+
 }

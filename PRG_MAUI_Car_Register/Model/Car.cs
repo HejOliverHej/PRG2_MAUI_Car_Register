@@ -21,9 +21,9 @@ namespace PRG_MAUI_Car_Register.Model
             get { return doors; }
 
             set {
-                if (value < 1 || value > 6)
+                if (value < 0 || value > 6)
                 {
-                    throw new ArgumentException("Antal dörrar måste vara mellan 1 och 6.");
+                    throw new ArgumentException("Antal dörrar måste vara mellan 0 och 6.");
                 }
 
                 doors = value; }

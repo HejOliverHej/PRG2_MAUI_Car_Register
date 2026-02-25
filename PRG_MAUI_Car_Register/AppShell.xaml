@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:PRG_MAUI_Car_Register"
     xmlns:view="clr-namespace:PRG_MAUI_Car_Register.View"
     Shell.FlyoutBehavior="Disabled"
-    Title="PRG_MAUI_Car_Register">
+    Title="PRG_MAUI_Car_Register" >
 
    
 
@@ -16,18 +16,21 @@
          Title="Home"
          ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
         <ShellContent
-        Title="Bilar"
-        ContentTemplate="{DataTemplate view:CarPage}" 
-        Route="CarPage" />
+    Title="Bilar"
+    ContentTemplate="{DataTemplate view:CarPage}" />
+
         <ShellContent
-        Title="MC"
-        ContentTemplate="{DataTemplate view:MCPage}" 
-        Route="MCPage" />
+    Title="MC"
+    ContentTemplate="{DataTemplate view:MCPage}"  />
+
         <ShellContent
-        Title="Lastbilar"
-        ContentTemplate="{DataTemplate view:TruckPage}" 
-        Route="TruckPage" />
+    Title="Lastbilar"
+    ContentTemplate="{DataTemplate view:TruckPage}"  />
+        
+        
+
     </TabBar>
 
 

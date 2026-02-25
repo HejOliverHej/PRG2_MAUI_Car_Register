@@ -139,19 +139,14 @@ namespace PRG_MAUI_Car_Register.ViewModel
             SearchCommand = new Command<string>(SearchVehicle);
             FilterCommand = new Command<string>(FilterVehicles);
 
-            vehicleslist.Add(new Car("ABC123", "Volvo", "XC", "2020", 5));
-            vehicleslist.Add(new MC("XYZ789", "Yamaha", "MT", "2019", "Sport"));
-            vehicleslist.Add(new Truck("JKL456", "Scania", "R", "2021", 20));
-            vehicleslist.Add(new Car("jnb765", "Volvo", "XC", "2024", 6));
+      
 
 
+            _ = LoadVehicles();
 
-            LoadVehicles(); 
 
             SelectedType = "Bil";
-            SelectedPage = "Bil";
 
-            ShowfilteredList();
         }
 
         private void UpdateVisibility()
@@ -161,7 +156,7 @@ namespace PRG_MAUI_Car_Register.ViewModel
             ShowLoadCapacity = SelectedType == "Lastbil";
             ResetFields();
         }
-        private async void LoadVehicles()
+        private async Task LoadVehicles()
         {
             var loaded = await storageService.LoadAsync();
 
@@ -212,8 +207,6 @@ namespace PRG_MAUI_Car_Register.ViewModel
         private void ResetFields()
         {
 
-            
-
             RegNr = string.Empty;
             Manufacturer = string.Empty;
             Model = string.Empty;
@@ -226,7 +219,7 @@ namespace PRG_MAUI_Car_Register.ViewModel
         private void SearchVehicle(string regNr)
         {
             var found = vehicleslist.FirstOrDefault(v =>
-    string.Equals(v.RegistrationNumber, regNr, StringComparison.OrdinalIgnoreCase));
+              string.Equals(v.RegistrationNumber, regNr, StringComparison.OrdinalIgnoreCase));
 
             if (found != null)
             {
@@ -287,3 +280,4 @@ namespace PRG_MAUI_Car_Register.ViewModel
 
     }
 }
+//FilteredVehicles

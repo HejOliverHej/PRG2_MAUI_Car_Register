@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
 using PRG_MAUI_Car_Register.ViewModel;
+using PRG_MAUI_Car_Register.View;
 
 #if WINDOWS
 using Microsoft.UI;
@@ -67,6 +68,13 @@ namespace PRG_MAUI_Car_Register
                 });
             });
 #endif
+            builder.Services.AddTransient<VehicleViewModel>();
+            builder.Services.AddTransient<CarPage>();
+            builder.Services.AddTransient<MCPage>();
+            builder.Services.AddTransient<TruckPage>();
+            builder.Services.AddSingleton<AppShell>();
+
+
 
             return builder.Build();
         }

@@ -7,9 +7,7 @@
 
 
 
-    <ContentPage.BindingContext>
-        <viewModel:VehicleViewModel />
-    </ContentPage.BindingContext>
+    
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="10">

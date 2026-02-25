@@ -8,6 +8,7 @@ namespace PRG_MAUI_Car_Register.Model
         private string manufacturer = string.Empty;
         private string model = string.Empty;
         private string modelYear = string.Empty;
+        public string Type => GetType().Name;
 
         public Vehicle(string registrationNumber, string manufacturer, string model, string modelYear) 
         {

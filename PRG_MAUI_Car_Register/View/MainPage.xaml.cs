@@ -1,4 +1,5 @@
 ﻿using PRG_MAUI_Car_Register.Model;
+using PRG_MAUI_Car_Register.ViewModel;
 
 
 namespace PRG_MAUI_Car_Register
@@ -6,10 +7,12 @@ namespace PRG_MAUI_Car_Register
     public partial class MainPage : ContentPage
     {
 
-        public MainPage()
+        public MainPage(VehicleViewModel vm)
         {
             InitializeComponent();
-            
+            BindingContext = vm;
+
+
         }
     }
 }
